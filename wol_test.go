@@ -33,3 +33,16 @@ func TestNewMagicPacket(t *testing.T) {
 		}
 	}
 }
+
+func TestEui48(t *testing.T) {
+	// only support EUI-48 addresses, EUI-64 should fail
+	_, err := NewMagicPacket("AA:BB:CC:AA:BB:CC:AA:BB")
+	if err == nil {
+		t.Error("able to construct magic packet with invalid MAC")
+	}
+
+	_, err = NewMagicPacket("AA:BB:CC:AA:BB:CC")
+	if err != nil {
+		t.Error(err)
+	}
+}
