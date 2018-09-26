@@ -11,7 +11,6 @@ type MagicPacket [102]byte
 // NewMagicPacket allocates a new MagicPacket with the specified MAC.
 func NewMagicPacket(macAddr string) (packet MagicPacket, err error) {
 	mac, err := net.ParseMAC(macAddr)
-	//mac, err := hex.DecodeString(strings.Join(strings.Split(macAddr, ":"), ""))
 	if err != nil {
 		return packet, err
 	}
@@ -44,11 +43,11 @@ func sendUDPPacket(mp MagicPacket, addr string) (err error) {
 }
 
 // Send writes the MagicPacket to the specified address on port 9.
-func (mp MagicPacket) Send(addr string) (err error) {
+func (mp MagicPacket) Send(addr string) error {
 	return sendUDPPacket(mp, addr+":9")
 }
 
 // SendPort writes the MagicPacket to the specified address and port.
-func (mp MagicPacket) SendPort(addr string, port string) (err error) {
+func (mp MagicPacket) SendPort(addr string, port string) error {
 	return sendUDPPacket(mp, addr+":"+port)
 }
